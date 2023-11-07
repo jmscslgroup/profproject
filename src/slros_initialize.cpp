@@ -3,9 +3,6 @@
 ros::NodeHandle * SLROSNodePtr;
 const std::string SLROSNodeName = "profproject";
 
-// For Block profproject/Subscribe
-SimulinkSubscriber<std_msgs::Float64, SL_Bus_profproject_std_msgs_Float64> Sub_profproject_34;
-
 // For Block profproject/Subscribe1
 SimulinkSubscriber<std_msgs::Float64, SL_Bus_profproject_std_msgs_Float64> Sub_profproject_39;
 

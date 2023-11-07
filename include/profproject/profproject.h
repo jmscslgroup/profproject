@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'profproject'.
 //
-// Model version                  : 6.11
+// Model version                  : 6.22
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Wed Oct 25 21:47:47 2023
+// C/C++ source code generated on : Mon Nov  6 21:43:11 2023
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)
@@ -23,6 +23,28 @@
 #include "rtw_solver.h"
 #include "slros_initialize.h"
 #include "profproject_types.h"
+
+extern "C"
+{
+
+#include "rtGetNaN.h"
+
+}
+
+extern "C"
+{
+
+#include "rt_nonfinite.h"
+
+}
+
+extern "C"
+{
+
+#include "rtGetInf.h"
+
+}
+
 #include <string.h>
 #include <stddef.h>
 
@@ -145,34 +167,40 @@
 
 // Block signals (default storage)
 struct B_profproject_T {
-  real_T Gain1;                        // '<Root>/Gain1'
-  real_T Gain;                         // '<Root>/Gain'
-  SL_Bus_profproject_std_msgs_Float64 In1;// '<S8>/In1'
-  SL_Bus_profproject_std_msgs_Float64 In1_n;// '<S7>/In1'
+  real_T ProportionalGain;             // '<S46>/Proportional Gain'
+  real_T DerivativeGain;               // '<S35>/Derivative Gain'
+  real_T FilterCoefficient;            // '<S44>/Filter Coefficient'
+  real_T Switch;                       // '<S32>/Switch'
+  SL_Bus_profproject_std_msgs_Float64 In1;// '<S7>/In1'
+  int8_T DataTypeConv2;                // '<S32>/DataTypeConv2'
+  boolean_T AND3;                      // '<S32>/AND3'
 };
 
 // Block states (default storage) for system '<Root>'
 struct DW_profproject_T {
   ros_slroscpp_internal_block_P_T obj; // '<S3>/SinkBlock'
-  ros_slroscpp_internal_block_S_T obj_k;// '<S5>/SourceBlock'
-  ros_slroscpp_internal_block_S_T obj_n;// '<S4>/SourceBlock'
+  ros_slroscpp_internal_block_S_T obj_k;// '<S4>/SourceBlock'
   real_T sinceLastMsg;                 // '<S2>/timeout set to 0 output'
+  boolean_T Memory_PreviousInput;      // '<S32>/Memory'
   boolean_T sinceLastMsg_not_empty;    // '<S2>/timeout set to 0 output'
 };
 
 // Continuous states (default storage)
 struct X_profproject_T {
-  real_T Integrator_CSTATE;            // '<Root>/Integrator'
+  real_T Integrator_CSTATE;            // '<S41>/Integrator'
+  real_T Filter_CSTATE;                // '<S36>/Filter'
 };
 
 // State derivatives (default storage)
 struct XDot_profproject_T {
-  real_T Integrator_CSTATE;            // '<Root>/Integrator'
+  real_T Integrator_CSTATE;            // '<S41>/Integrator'
+  real_T Filter_CSTATE;                // '<S36>/Filter'
 };
 
 // State disabled
 struct XDis_profproject_T {
-  boolean_T Integrator_CSTATE;         // '<Root>/Integrator'
+  boolean_T Integrator_CSTATE;         // '<S41>/Integrator'
+  boolean_T Filter_CSTATE;             // '<S36>/Filter'
 };
 
 #ifndef ODE3_INTG
@@ -188,6 +216,38 @@ struct ODE3_IntgData {
 
 // Parameters (default storage)
 struct P_profproject_T_ {
+  real_T rawaccel_D;                   // Mask Parameter: rawaccel_D
+                                          //  Referenced by: '<S35>/Derivative Gain'
+
+  real_T rawaccel_I;                   // Mask Parameter: rawaccel_I
+                                          //  Referenced by: '<S38>/Integral Gain'
+
+  real_T rawaccel_InitialConditionForFil;
+                              // Mask Parameter: rawaccel_InitialConditionForFil
+                                 //  Referenced by: '<S36>/Filter'
+
+  real_T rawaccel_InitialConditionForInt;
+                              // Mask Parameter: rawaccel_InitialConditionForInt
+                                 //  Referenced by: '<S41>/Integrator'
+
+  real_T rawaccel_LowerSaturationLimit;
+                                // Mask Parameter: rawaccel_LowerSaturationLimit
+                                   //  Referenced by:
+                                   //    '<S48>/Saturation'
+                                   //    '<S34>/DeadZone'
+
+  real_T rawaccel_N;                   // Mask Parameter: rawaccel_N
+                                          //  Referenced by: '<S44>/Filter Coefficient'
+
+  real_T rawaccel_P;                   // Mask Parameter: rawaccel_P
+                                          //  Referenced by: '<S46>/Proportional Gain'
+
+  real_T rawaccel_UpperSaturationLimit;
+                                // Mask Parameter: rawaccel_UpperSaturationLimit
+                                   //  Referenced by:
+                                   //    '<S48>/Saturation'
+                                   //    '<S34>/DeadZone'
+
   real_T DeadMansSwitch_stepSize;     // Mask Parameter: DeadMansSwitch_stepSize
                                          //  Referenced by: '<S2>/Simulate step size'
 
@@ -200,20 +260,11 @@ struct P_profproject_T_ {
   SL_Bus_profproject_std_msgs_Float64 Out1_Y0;// Computed Parameter: Out1_Y0
                                                  //  Referenced by: '<S7>/Out1'
 
-  SL_Bus_profproject_std_msgs_Float64 Constant_Value_g;// Computed Parameter: Constant_Value_g
+  SL_Bus_profproject_std_msgs_Float64 Constant_Value_p;// Computed Parameter: Constant_Value_p
                                                           //  Referenced by: '<S4>/Constant'
 
-  SL_Bus_profproject_std_msgs_Float64 Out1_Y0_d;// Computed Parameter: Out1_Y0_d
-                                                   //  Referenced by: '<S8>/Out1'
-
-  SL_Bus_profproject_std_msgs_Float64 Constant_Value_p;// Computed Parameter: Constant_Value_p
-                                                          //  Referenced by: '<S5>/Constant'
-
-  real_T Integrator_IC;                // Expression: 0
-                                          //  Referenced by: '<Root>/Integrator'
-
-  real_T Gain1_Gain;                   // Expression: 0.05
-                                          //  Referenced by: '<Root>/Gain1'
+  real_T Constant1_Value;              // Expression: 0
+                                          //  Referenced by: '<S32>/Constant1'
 
   real_T Saturation_UpperSat;          // Expression: 1.5
                                           //  Referenced by: '<Root>/Saturation'
@@ -221,8 +272,12 @@ struct P_profproject_T_ {
   real_T Saturation_LowerSat;          // Expression: -3
                                           //  Referenced by: '<Root>/Saturation'
 
-  real_T Gain_Gain;                    // Expression: 0.05
-                                          //  Referenced by: '<Root>/Gain'
+  real_T ZeroGain_Gain;                // Expression: 0
+                                          //  Referenced by: '<S32>/ZeroGain'
+
+  boolean_T Memory_InitialCondition;
+                                  // Computed Parameter: Memory_InitialCondition
+                                     //  Referenced by: '<S32>/Memory'
 
 };
 
@@ -238,8 +293,8 @@ struct tag_RTM_profproject_T {
   boolean_T zCCacheNeedsReset;
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
-  real_T odeY[1];
-  real_T odeF[3][1];
+  real_T odeY[2];
+  real_T odeF[3][2];
   ODE3_IntgData intgData;
 
   //
@@ -369,11 +424,60 @@ extern volatile boolean_T runModel;
 //  '<S1>'   : 'profproject/Blank Message'
 //  '<S2>'   : 'profproject/Dead Man's Switch'
 //  '<S3>'   : 'profproject/Publish'
-//  '<S4>'   : 'profproject/Subscribe'
-//  '<S5>'   : 'profproject/Subscribe1'
+//  '<S4>'   : 'profproject/Subscribe1'
+//  '<S5>'   : 'profproject/rawaccel'
 //  '<S6>'   : 'profproject/Dead Man's Switch/timeout set to 0 output'
-//  '<S7>'   : 'profproject/Subscribe/Enabled Subsystem'
-//  '<S8>'   : 'profproject/Subscribe1/Enabled Subsystem'
+//  '<S7>'   : 'profproject/Subscribe1/Enabled Subsystem'
+//  '<S8>'   : 'profproject/rawaccel/Anti-windup'
+//  '<S9>'   : 'profproject/rawaccel/D Gain'
+//  '<S10>'  : 'profproject/rawaccel/Filter'
+//  '<S11>'  : 'profproject/rawaccel/Filter ICs'
+//  '<S12>'  : 'profproject/rawaccel/I Gain'
+//  '<S13>'  : 'profproject/rawaccel/Ideal P Gain'
+//  '<S14>'  : 'profproject/rawaccel/Ideal P Gain Fdbk'
+//  '<S15>'  : 'profproject/rawaccel/Integrator'
+//  '<S16>'  : 'profproject/rawaccel/Integrator ICs'
+//  '<S17>'  : 'profproject/rawaccel/N Copy'
+//  '<S18>'  : 'profproject/rawaccel/N Gain'
+//  '<S19>'  : 'profproject/rawaccel/P Copy'
+//  '<S20>'  : 'profproject/rawaccel/Parallel P Gain'
+//  '<S21>'  : 'profproject/rawaccel/Reset Signal'
+//  '<S22>'  : 'profproject/rawaccel/Saturation'
+//  '<S23>'  : 'profproject/rawaccel/Saturation Fdbk'
+//  '<S24>'  : 'profproject/rawaccel/Sum'
+//  '<S25>'  : 'profproject/rawaccel/Sum Fdbk'
+//  '<S26>'  : 'profproject/rawaccel/Tracking Mode'
+//  '<S27>'  : 'profproject/rawaccel/Tracking Mode Sum'
+//  '<S28>'  : 'profproject/rawaccel/Tsamp - Integral'
+//  '<S29>'  : 'profproject/rawaccel/Tsamp - Ngain'
+//  '<S30>'  : 'profproject/rawaccel/postSat Signal'
+//  '<S31>'  : 'profproject/rawaccel/preSat Signal'
+//  '<S32>'  : 'profproject/rawaccel/Anti-windup/Cont. Clamping Parallel'
+//  '<S33>'  : 'profproject/rawaccel/Anti-windup/Cont. Clamping Parallel/Dead Zone'
+//  '<S34>'  : 'profproject/rawaccel/Anti-windup/Cont. Clamping Parallel/Dead Zone/Enabled'
+//  '<S35>'  : 'profproject/rawaccel/D Gain/Internal Parameters'
+//  '<S36>'  : 'profproject/rawaccel/Filter/Cont. Filter'
+//  '<S37>'  : 'profproject/rawaccel/Filter ICs/Internal IC - Filter'
+//  '<S38>'  : 'profproject/rawaccel/I Gain/Internal Parameters'
+//  '<S39>'  : 'profproject/rawaccel/Ideal P Gain/Passthrough'
+//  '<S40>'  : 'profproject/rawaccel/Ideal P Gain Fdbk/Disabled'
+//  '<S41>'  : 'profproject/rawaccel/Integrator/Continuous'
+//  '<S42>'  : 'profproject/rawaccel/Integrator ICs/Internal IC'
+//  '<S43>'  : 'profproject/rawaccel/N Copy/Disabled'
+//  '<S44>'  : 'profproject/rawaccel/N Gain/Internal Parameters'
+//  '<S45>'  : 'profproject/rawaccel/P Copy/Disabled'
+//  '<S46>'  : 'profproject/rawaccel/Parallel P Gain/Internal Parameters'
+//  '<S47>'  : 'profproject/rawaccel/Reset Signal/Disabled'
+//  '<S48>'  : 'profproject/rawaccel/Saturation/Enabled'
+//  '<S49>'  : 'profproject/rawaccel/Saturation Fdbk/Disabled'
+//  '<S50>'  : 'profproject/rawaccel/Sum/Sum_PID'
+//  '<S51>'  : 'profproject/rawaccel/Sum Fdbk/Disabled'
+//  '<S52>'  : 'profproject/rawaccel/Tracking Mode/Disabled'
+//  '<S53>'  : 'profproject/rawaccel/Tracking Mode Sum/Passthrough'
+//  '<S54>'  : 'profproject/rawaccel/Tsamp - Integral/Passthrough'
+//  '<S55>'  : 'profproject/rawaccel/Tsamp - Ngain/Passthrough'
+//  '<S56>'  : 'profproject/rawaccel/postSat Signal/Forward_Path'
+//  '<S57>'  : 'profproject/rawaccel/preSat Signal/Forward_Path'
 
 #endif                                 // RTW_HEADER_profproject_h_
 

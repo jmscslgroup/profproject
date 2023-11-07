@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'profproject'.
 //
-// Model version                  : 6.11
+// Model version                  : 6.22
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Wed Oct 25 21:47:47 2023
+// C/C++ source code generated on : Mon Nov  6 21:43:11 2023
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Generic->Unspecified (assume 32-bit Generic)

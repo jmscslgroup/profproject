@@ -3,9 +3,9 @@
 //
 // Code generated for Simulink model 'profproject'.
 //
-// Model version                  : 6.11
+// Model version                  : 6.22
 // Simulink Coder version         : 9.8 (R2022b) 13-May-2022
-// C/C++ source code generated on : Wed Oct 25 21:47:54 2023
+// C/C++ source code generated on : Mon Nov 06 21:43:17 2023
 //
 
 #include <stdio.h>

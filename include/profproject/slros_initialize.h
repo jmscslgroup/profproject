@@ -8,9 +8,6 @@
 extern ros::NodeHandle * SLROSNodePtr;
 extern const std::string SLROSNodeName;
 
-// For Block profproject/Subscribe
-extern SimulinkSubscriber<std_msgs::Float64, SL_Bus_profproject_std_msgs_Float64> Sub_profproject_34;
-
 // For Block profproject/Subscribe1
 extern SimulinkSubscriber<std_msgs::Float64, SL_Bus_profproject_std_msgs_Float64> Sub_profproject_39;
 

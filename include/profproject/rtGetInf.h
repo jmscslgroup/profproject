@@ -3,7 +3,7 @@
 // course requirements at degree granting institutions only.  Not for
 // government, commercial, or other organizational use.
 //
-// File: profproject_private.h
+// File: rtGetInf.h
 //
 // Code generated for Simulink model 'profproject'.
 //
@@ -16,28 +16,27 @@
 // Code generation objectives: Unspecified
 // Validation result: Not run
 //
-#ifndef RTW_HEADER_profproject_private_h_
-#define RTW_HEADER_profproject_private_h_
+#ifndef RTW_HEADER_rtGetInf_h_
+#define RTW_HEADER_rtGetInf_h_
 #include "rtwtypes.h"
-#include "profproject_types.h"
+#ifdef __cplusplus
 
-// Private macros used by the generated code to access rtModel
-#ifndef rtmIsMajorTimeStep
-#define rtmIsMajorTimeStep(rtm)        (((rtm)->Timing.simTimeStep) == MAJOR_TIME_STEP)
+extern "C"
+{
+
 #endif
 
-#ifndef rtmIsMinorTimeStep
-#define rtmIsMinorTimeStep(rtm)        (((rtm)->Timing.simTimeStep) == MINOR_TIME_STEP)
+  extern real_T rtGetInf(void);
+  extern real32_T rtGetInfF(void);
+  extern real_T rtGetMinusInf(void);
+  extern real32_T rtGetMinusInfF(void);
+
+#ifdef __cplusplus
+
+}                                      // extern "C"
+
 #endif
-
-#ifndef rtmSetTPtr
-#define rtmSetTPtr(rtm, val)           ((rtm)->Timing.t = (val))
-#endif
-
-// private model entry point functions
-extern void profproject_derivatives(void);
-
-#endif                                 // RTW_HEADER_profproject_private_h_
+#endif                                 // RTW_HEADER_rtGetInf_h_
 
 //
 // File trailer for generated code.
