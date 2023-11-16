@@ -149,7 +149,7 @@ read -r -d '' START <<-'EOF'
 #!/bin/bash
 
 echo "=========================="
-echo "Starting App {APPNAME} for {APP_NAME_PRETTY}"
+echo "Starting App {APPNAME} for {APP_PRETTY_NAME}"
 
 
 systemctl start {REPONAMECLEAN}
@@ -229,7 +229,7 @@ GITHUB_OWNER=
 read -p 'Enter the app pretty name (spaces ok): ' APP_PRETTY_NAME
 echo "${APP_PRETTY_NAME}" is the name of the app.
 
-read -p 'What is the github owner/org for the repository for this app?' GITHUB_OWNER
+read -p 'What is the github owner/org for the repository for this app? ' GITHUB_OWNER
 read -p 'What is the github repo for this app?: ' REPONAME
 read -p 'Enter a 1-line sentence that describes this app: ' APP_DESCRIPTION
 read -p 'What is the app shortname (no spaces or special chars)?: ' APPNAME
